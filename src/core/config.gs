@@ -28,20 +28,20 @@ const Config = Object.freeze({
 
   }),
 
-  RANGES: Object.freeze({
+  RANGES: {
 
-    EXCHANGE_RATE: 'exchange_rate',
+    EXCHANGE_VALUE: "ui_exchange_value",
 
-    LAST_UPDATE: 'exchange_last_update',
+    EXCHANGE_UPDATED_AT: "ui_exchange_updated_at",
 
-    DAILY_CHANGE: 'exchange_daily_change',
+    EXCHANGE_HIGH: "ui_exchange_high",
 
-    HIGH_RATE: 'exchange_high_rate',
+    EXCHANGE_LOW: "ui_exchange_low",
 
-    LOW_RATE: 'exchange_low_rate',
+    EXCHANGE_AVERAGE: "ui_exchange_average",
 
-    AVERAGE_RATE: 'exchange_average_rate'
+    EXCHANGE_DAILY_CHANGE: "ui_exchange_daily_change"
 
-  })
+}
 
 });
