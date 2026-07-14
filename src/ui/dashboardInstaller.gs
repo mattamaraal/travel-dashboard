@@ -16,31 +16,26 @@
  */
 
 const DashboardInstaller = (() => {
-
   /**
    * Instala a Dashboard.
    */
   function install() {
-
-    Logger.info("Installing Dashboard...");
+    Logger.info('Installing Dashboard...');
 
     prepareSheet();
 
-    Dashboard.COMPONENTS.forEach(installComponent);
+    Dashboard.components().forEach(installComponent);
 
-    Logger.info("Dashboard installed successfully.");
-
+    Logger.info('Dashboard installed successfully.');
   }
 
   /**
    * Reinstala completamente a Dashboard.
    */
   function rebuild() {
-
-    Logger.info("Rebuilding Dashboard...");
+    Logger.info('Rebuilding Dashboard...');
 
     install();
-
   }
 
   /**
@@ -49,27 +44,19 @@ const DashboardInstaller = (() => {
    * @returns {boolean}
    */
   function verify() {
-
-    Logger.info("Verifying Dashboard...");
+    Logger.info('Verifying Dashboard...');
 
     try {
+      Dashboard.components().forEach(verifyComponent);
 
-      Dashboard.COMPONENTS.forEach(verifyComponent);
-
-      Logger.info("Dashboard verification succeeded.");
+      Logger.info('Dashboard verification succeeded.');
 
       return true;
-
-    }
-
-    catch (error) {
-
+    } catch (error) {
       Logger.error(error);
 
       return false;
-
     }
-
   }
 
   /**
@@ -78,17 +65,13 @@ const DashboardInstaller = (() => {
    * @param {Object} component
    */
   function installComponent(component) {
-
     switch (component.type) {
-
       case ComponentTypes.METRIC:
-
         Components.metric(component);
 
         break;
 
       case ComponentTypes.CARD:
-
         Components.card(component);
 
         break;
@@ -104,21 +87,13 @@ const DashboardInstaller = (() => {
       case ComponentTypes.LIST:
 
       case ComponentTypes.TABLE:
-
-        Logger.warn(
-          `Component '${component.type}' not implemented yet.`
-        );
+        Logger.warn(`Component '${component.type}' not implemented yet.`);
 
         break;
 
       default:
-
-        throw new Error(
-          `Unsupported component type '${component.type}'.`
-        );
-
+        throw new Error(`Unsupported component type '${component.type}'.`);
     }
-
   }
 
   /**
@@ -129,29 +104,20 @@ const DashboardInstaller = (() => {
    * @param {Object} component
    */
   function verifyComponent(component) {
-
     if (!component.bindings) {
       return;
     }
 
-    Object.values(component.bindings)
-      .forEach(binding => {
-
-        Sheets.getNamedRange(binding);
-
-      });
-
+    Object.values(component.bindings).forEach((binding) => {
+      Sheets.getNamedRange(binding);
+    });
   }
 
   /**
    * Prepara a planilha.
    */
   function prepareSheet() {
-
-    const sheet =
-      Sheets.getSheet(
-        Config.SHEETS.DASHBOARD
-      );
+    const sheet = Sheets.getSheet(Config.SHEETS.DASHBOARD);
 
     sheet.clear();
 
@@ -161,13 +127,7 @@ const DashboardInstaller = (() => {
 
     applyGrid(sheet);
 
-    sheet.getRange(
-    1,
-    1,
-    sheet.getMaxRows(),
-    sheet.getMaxColumns()
-).breakApart();
-
+    sheet.getRange(1, 1, sheet.getMaxRows(), sheet.getMaxColumns()).breakApart();
   }
 
   /**
@@ -176,37 +136,20 @@ const DashboardInstaller = (() => {
    * @param {GoogleAppsScript.Spreadsheet.Sheet} sheet
    */
   function applyGrid(sheet) {
+    Grid.SHEET.COLUMN_WIDTHS.forEach((width, index) => {
+      sheet.setColumnWidth(index + 1, width);
+    });
 
-    Grid.SHEET.COLUMN_WIDTHS
-      .forEach((width, index) => {
-
-        sheet.setColumnWidth(
-          index + 1,
-          width
-        );
-
-      });
-
-    Grid.SHEET.ROW_HEIGHTS
-      .forEach((height, index) => {
-
-        sheet.setRowHeight(
-          index + 1,
-          height
-        );
-
-      });
-
+    Grid.SHEET.ROW_HEIGHTS.forEach((height, index) => {
+      sheet.setRowHeight(index + 1, height);
+    });
   }
 
   return {
-
     install,
 
     rebuild,
 
-    verify
-
+    verify,
   };
-
 })();

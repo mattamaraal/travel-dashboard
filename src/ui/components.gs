@@ -19,7 +19,6 @@
  */
 
 const Components = (() => {
-
   /**
    * Cria um Card.
    *
@@ -35,25 +34,15 @@ const Components = (() => {
    * }} options
    */
   function card(options) {
-
-    const sheet = Sheets.getSheet(
-      Config.SHEETS.DASHBOARD
-    );
+    const sheet = Sheets.getSheet(Config.SHEETS.DASHBOARD);
 
     const area = options.area;
 
-    const range = sheet.getRange(
-      area.row,
-      area.column,
-      area.rows,
-      area.columns
-    );
+    const range = sheet.getRange(area.row, area.column, area.rows, area.columns);
 
     range
       .merge()
-      .setBackground(
-        Theme.COLORS.SURFACE
-      )
+      .setBackground(Theme.COLORS.SURFACE)
       .setBorder(
         true,
         true,
@@ -62,30 +51,19 @@ const Components = (() => {
         false,
         false,
         Theme.COLORS.BORDER,
-        SpreadsheetApp.BorderStyle.SOLID
+        SpreadsheetApp.BorderStyle.SOLID,
       );
 
-    range
-      .setVerticalAlignment("top")
-      .setHorizontalAlignment("left");
+    range.setVerticalAlignment('top').setHorizontalAlignment('left');
 
-    range.setValue(
-      `${options.icon} ${options.title}`
-    );
+    range.setValue(`${options.icon} ${options.title}`);
 
     range
-      .setFontFamily(
-        Theme.TYPOGRAPHY.FONT_FAMILY
-      )
-      .setFontSize(
-        Theme.TYPOGRAPHY.HEADER.SIZE
-      )
-      .setFontWeight(
-        Theme.TYPOGRAPHY.HEADER.WEIGHT
-      );
+      .setFontFamily(Theme.TYPOGRAPHY.FONT_FAMILY)
+      .setFontSize(Theme.TYPOGRAPHY.HEADER.SIZE)
+      .setFontWeight(Theme.TYPOGRAPHY.HEADER.WEIGHT);
 
     return range;
-
   }
 
   /**
@@ -102,12 +80,9 @@ const Components = (() => {
    * }} options
    */
   function metric(options) {
-
     const range = card(options);
 
-    const sheet = Sheets.getSheet(
-      Config.SHEETS.DASHBOARD
-    );
+    const sheet = Sheets.getSheet(Config.SHEETS.DASHBOARD);
 
     const area = options.area;
 
@@ -115,78 +90,44 @@ const Components = (() => {
      * Valor
      */
 
-    const valueRange = sheet.getRange(
-      area.row + 1,
-      area.column,
-      1,
-      area.columns
-    );
+    const valueRange = sheet.getRange(area.row + 1, area.column, 1, area.columns);
 
     valueRange
-      .setFontFamily(
-        Theme.TYPOGRAPHY.FONT_FAMILY
-      )
-      .setFontWeight(
-        Theme.TYPOGRAPHY.METRIC.WEIGHT
-      )
-      .setFontSize(
-        Theme.TYPOGRAPHY.METRIC.SIZE
-      );
+      .setFontFamily(Theme.TYPOGRAPHY.FONT_FAMILY)
+      .setFontWeight(Theme.TYPOGRAPHY.METRIC.WEIGHT)
+      .setFontSize(Theme.TYPOGRAPHY.METRIC.SIZE);
 
-    valueRange.setValue("--");
+    valueRange.setValue('--');
 
-    Sheets.setNamedRange(
-      options.bindings.value,
-      valueRange
-    );
+    Sheets.setNamedRange(options.bindings.value, valueRange);
 
     /*
      * Subtitle
      */
 
-    const subtitleRange = sheet.getRange(
-      area.row + area.rows - 1,
-      area.column,
-      1,
-      area.columns
-    );
+    const subtitleRange = sheet.getRange(area.row + area.rows - 1, area.column, 1, area.columns);
 
     subtitleRange
-      .setFontFamily(
-        Theme.TYPOGRAPHY.FONT_FAMILY
-      )
-      .setFontSize(
-        Theme.TYPOGRAPHY.CAPTION.SIZE
-      )
-      .setFontColor(
-        Theme.COLORS.TEXT_SECONDARY
-      );
+      .setFontFamily(Theme.TYPOGRAPHY.FONT_FAMILY)
+      .setFontSize(Theme.TYPOGRAPHY.CAPTION.SIZE)
+      .setFontColor(Theme.COLORS.TEXT_SECONDARY);
 
-    subtitleRange.setValue("--");
+    subtitleRange.setValue('--');
 
-    sheet.setNamedRange(
-      options.bindings.subtitle,
-      subtitleRange
-    );
+    Sheets.setNamedRange(options.bindings.subtitle, subtitleRange);
 
     return {
-
       card: range,
 
       value: valueRange,
 
-      subtitle: subtitleRange
-
+      subtitle: subtitleRange,
     };
-
   }
 
   return {
-
     card,
 
-    metric
-
+    metric,
   };
-
 })();

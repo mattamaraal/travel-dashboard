@@ -2,102 +2,91 @@
  * ============================================================================
  * Dashboard
  * ============================================================================
- *
- * Definição declarativa da Dashboard principal.
- *
- * Este arquivo NÃO desenha nada.
- * Apenas descreve quais componentes existem.
- * ============================================================================
  */
 
-const Dashboard = Object.freeze({
+const Dashboard = (() => {
+  /**
+   * Retorna a definição da Dashboard.
+   *
+   * @returns {Object[]}
+   */
+  function components() {
+    return [
+      {
+        id: 'exchange',
 
-  COMPONENTS: [
+        type: ComponentTypes.METRIC,
 
-    {
-      id: "exchange",
+        area: Grid.AREAS.EXCHANGE_CARD,
 
-      type: "metric",
+        title: 'Exchange',
 
-      area: Grid.AREAS.EXCHANGE_CARD,
+        icon: Theme.ICONS.EXCHANGE,
 
-      title: "Exchange",
+        bindings: {
+          value: Config.RANGES.EXCHANGE_VALUE,
 
-      icon: Theme.ICONS.EXCHANGE,
+          subtitle: Config.RANGES.EXCHANGE_DAILY_CHANGE,
+        },
+      },
 
-      bindings: {
+      {
+        id: 'budget',
 
-        value: Config.RANGES.EXCHANGE_VALUE,
+        type: ComponentTypes.METRIC,
 
-        subtitle: Config.RANGES.EXCHANGE_DAILY_CHANGE
+        area: Grid.AREAS.BUDGET_CARD,
 
-      }
+        title: 'Budget',
 
-    },
+        icon: Theme.ICONS.BUDGET,
 
-    {
-      id: "budget",
+        bindings: {
+          value: 'ui_budget_total',
 
-      type: "metric",
+          subtitle: 'ui_budget_remaining',
+        },
+      },
 
-      area: Grid.AREAS.BUDGET_CARD,
+      {
+        id: 'expenses',
 
-      title: "Budget",
+        type: ComponentTypes.METRIC,
 
-      icon: Theme.ICONS.BUDGET,
+        area: Grid.AREAS.EXPENSE_CARD,
 
-      bindings: {
+        title: 'Expenses',
 
-        value: "ui_budget_total",
+        icon: Theme.ICONS.EXPENSES,
 
-        subtitle: "ui_budget_remaining"
+        bindings: {
+          value: 'ui_expenses_total',
 
-      }
+          subtitle: 'ui_expenses_count',
+        },
+      },
 
-    },
+      {
+        id: 'countdown',
 
-    {
-      id: "expenses",
+        type: ComponentTypes.METRIC,
 
-      type: "metric",
+        area: Grid.AREAS.COUNTDOWN_CARD,
 
-      area: Grid.AREAS.EXPENSE_CARD,
+        title: 'Countdown',
 
-      title: "Expenses",
+        icon: Theme.ICONS.TRIP,
 
-      icon: Theme.ICONS.EXPENSES,
+        bindings: {
+          value: 'ui_trip_countdown',
 
-      bindings: {
+          subtitle: 'ui_trip_dates',
+        },
+      },
+    ];
+  }
 
-        value: "ui_expenses_total",
-
-        subtitle: "ui_expenses_count"
-
-      }
-
-    },
-
-    {
-      id: "countdown",
-
-      type: ComponentTypes.METRIC,
-
-      area: Grid.AREAS.COUNTDOWN_CARD,
-
-      title: "Countdown",
-
-      icon: Theme.ICONS.TRIP,
-
-      bindings: {
-
-        value: "ui_trip_countdown",
-
-        subtitle: "ui_trip_dates"
-
-      }
-
-    }
-
-  ]
-
-});
+  return {
+    components,
+  };
+})();
