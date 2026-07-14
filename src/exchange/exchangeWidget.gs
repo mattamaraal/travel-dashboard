@@ -37,22 +37,22 @@ const ExchangeWidget = (() => {
 
     const values = {};
 
-    values[Config.RANGES.EXCHANGE_RATE] =
+    values[Config.RANGES.EXCHANGE_VALUE] =
       statistics.current.rate;
 
-    values[Config.RANGES.LAST_UPDATE] =
+    values[Config.RANGES.EXCHANGE_UPDATED_AT] =
       statistics.current.updatedAt;
 
-    values[Config.RANGES.HIGH_RATE] =
+    values[Config.RANGES.EXCHANGE_HIGH] =
       statistics.highest;
 
-    values[Config.RANGES.LOW_RATE] =
+    values[Config.RANGES.EXCHANGE_LOW] =
       statistics.lowest;
 
-    values[Config.RANGES.AVERAGE_RATE] =
+    values[Config.RANGES.EXCHANGE_AVERAGE] =
       statistics.average;
 
-    values[Config.RANGES.DAILY_CHANGE] =
+    values[Config.RANGES.EXCHANGE_DAILY_CHANGE] =
       statistics.dailyVariation ?? 0;
 
     Object.entries(values)
@@ -93,17 +93,17 @@ const ExchangeWidget = (() => {
 
     const ranges = [
 
-      Config.RANGES.EXCHANGE_RATE,
+      Config.RANGES.EXCHANGE_VALUE,
 
-      Config.RANGES.LAST_UPDATE,
+      Config.RANGES.EXCHANGE_UPDATED_AT,
 
-      Config.RANGES.HIGH_RATE,
+      Config.RANGES.EXCHANGE_HIGH,
 
-      Config.RANGES.LOW_RATE,
+      Config.RANGES.EXCHANGE_LOW,
 
-      Config.RANGES.AVERAGE_RATE,
+      Config.RANGES.EXCHANGE_AVERAGE,
 
-      Config.RANGES.DAILY_CHANGE
+      Config.RANGES.EXCHANGE_DAILY_CHANGE
 
     ];
 

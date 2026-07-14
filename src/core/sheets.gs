@@ -96,6 +96,27 @@ const Sheets = (() => {
 
   }
 
+  /**
+ * Cria ou atualiza um Named Range.
+ *
+ * @param {string} name
+ * @param {GoogleAppsScript.Spreadsheet.Range} range
+ */
+function setNamedRange(name, range) {
+
+  const ss = get();
+
+  const existing = ss.getNamedRanges()
+    .find(r => r.getName() === name);
+
+  if (existing) {
+    existing.remove();
+  }
+
+  ss.setNamedRange(name, range);
+
+}
+
   return {
 
     get,
@@ -105,6 +126,8 @@ const Sheets = (() => {
     getSheet,
 
     getNamedRange,
+
+    setNamedRange,
 
     toast,
 
